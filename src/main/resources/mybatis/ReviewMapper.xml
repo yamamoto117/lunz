@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.dao.ReviewDao">
+
+	<resultMap id="review" type="com.example.app.domain.Review" autoMapping="true"></resultMap>
+
+	<select id="findByPlaceId" resultMap="review">
+		SELECT
+		reviews.id,
+		reviews.user_id,
+		users.name AS user_name,
+		reviews.visit_date,
+		reviews.rating,
+		reviews.comment
+		FROM reviews
+		JOIN users
+		ON reviews.user_id = users.id
+		JOIN restaurants
+		ON reviews.restaurant_id = restaurants.id
+		WHERE restaurants.place_id = #{placeId}
+		ORDER BY reviews.visit_date DESC
+	</select>
+	<select id="selectById" parameterType="int" resultType="com.example.app.domain.Review">
+		SELECT
+		reviews.id,
+		reviews.visit_date,
+		reviews.rating,
+		reviews.comment
+		FROM reviews
+		WHERE reviews.id = #{id}
+	</select>
+	<select id="selectByUserId" parameterType="int" resultMap="review">
+	    SELECT
+	    reviews.id,
+	    users.name AS user_name,
+	    reviews.visit_date,
+	    reviews.rating,
+	    reviews.comment
+	    FROM reviews
+	    JOIN users
+	    ON reviews.user_id = users.id
+	    WHERE reviews.user_id = #{userId}
+	</select>
+	<insert id="insert" parameterType="com.example.app.domain.Review">
+		<selectKey resultType="int" keyProperty="restaurantId" order="BEFORE">
+	        SELECT id FROM restaurants WHERE place_id = #{placeId}
+	    </selectKey>
+	    
+		INSERT INTO reviews (user_id, restaurant_id, visit_date, rating, comment, created_at)
+		VALUES (#{userId}, #{restaurantId}, #{visitDate}, #{rating}, #{comment}, NOW())
+	</insert>
+	<update id="update" parameterType="com.example.app.domain.Review">
+		UPDATE reviews
+		SET visit_date = #{visitDate},
+		rating = #{rating},
+		comment = #{comment},
+		updated_at = NOW()
+		WHERE id = #{id}
+	</update>
+	<delete id="delete" parameterType="int">
+		DELETE FROM reviews WHERE id = #{id}
+	</delete>
+	<select id="findAll" resultMap="review">
+		SELECT
+		reviews.id,
+		users.name AS user_name,
+		restaurants.place_id AS place_id,
+		reviews.visit_date,
+		reviews.rating,
+		reviews.comment
+		FROM reviews
+		JOIN users
+		ON reviews.user_id = users.id
+		JOIN restaurants
+		ON reviews.restaurant_id = restaurants.id
+		ORDER BY reviews.visit_date DESC
+	</select>
+</mapper>

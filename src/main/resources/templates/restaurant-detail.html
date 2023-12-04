@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{parts/common :: layout('お店詳細', ~{::body/content()})}">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body>
+	<main class="flex-1">
+		<div class="container mx-auto py-6 px-4 lg:px-44">
+			<a href="javascript:history.back()"	class="text-blue-500 text-xl font-bold hover:text-blue-300 -ml-1">
+				＜ お店一覧へ
+			</a>
+			<h2 id="name" class="text-3xl mt-8 font-semibold text-gray-600 -ml-0.5"></h2>
+			<div class="flex pt-4 items-center">
+				<div class="flex items-center">
+					<i class="fas fa-hourglass-start text-gray-600 mt-1 mr-2"></i>
+					<div th:if="${averageRating != 0}" class="flex items-center">
+						<p class="text-2xl font-bold mr-1 text-red-500" th:text="${averageRating}"></p>
+						<div class="mt-0.5">
+							<i th:each="star : ${#numbers.sequence(1,5)}" th:classappend="${star <= (averageRating - (averageRating % 1))} ? 'fas fa-star text-amber-400' : 'far fa-star'" class="fa-star text-amber-400"></i>
+						</div>
+						<p class="text-xl text-gray-400 ml-1" th:text="'(' + ${reviewCount} + ')'"></p>
+					</div>
+					<p th:unless="${averageRating != 0}" class="text-xl font-bold text-gray-600">口コミなし</p>
+				</div>
+				<p class="text-xl text-gray-600 font-bold pl-4">
+					<i class="fas fa-walking text-gray-600 mr-1"></i>
+					<span id="travel-time"></span>
+				</p>
+			</div>
+			<div class="photo-navigation relative mt-6">
+				<button id="prev-photo" onclick="showPreviousPhoto()" class="text-gray-400 hover:text-amber-400">＜</button>
+				<div class="photo-container" id="photo-container">
+					<!-- 画像がJavaScriptでここに追加される -->
+				</div>
+				<button id="next-photo" onclick="showNextPhoto()" class="text-gray-400 hover:text-amber-400">＞</button>
+			</div>
+			<div class="mt-10 border-t">
+				<div class="flex items-center">
+					<h3 class="text-xl text-gray-600 font-semibold mt-4 mb-4">口コミ</h3>
+					<a th:if="${session.loginStatus != null}" th:href="@{/restaurant/{id}/reviews/add(id=${placeId})}" class="bg-amber-400 text-white font-semibold px-2 py-1 rounded hover:bg-amber-500 transition duration-200 ease-in-out ml-auto">
+						<span><i class="fas fa-edit"></i></span>
+						口コミを投稿する
+					</a>
+				</div>
+			</div>
+			<div id="reviews-container" class="border-b pb-4">
+				<div th:if="${!reviews.isEmpty()}" th:each="review : ${reviews}" class="review-card bg-white p-6 rounded-lg border border-gray-300 mb-1">
+					<div class="flex items-center mb-2">
+						<i class="fas fa-user-circle text-5xl text-gray-300 mr-2.5"></i>
+						<div>
+							<p class="font-semibold text-gray-600">[[${review.userName}]]</p>
+							<div class="flex items-center">
+								<p class="text-gray-400 text-sm mr-2">[[${#dates.format(review.visitDate, 'yyyy年MM月dd日')}]]訪問</p>
+								<div th:if="${session.loginStatus != null and session.loginStatus.id == review.userId}" class="flex items-center">
+						            <a th:href="@{{placeId}/reviews/edit/{id}(placeId=${placeId}, id=${review.id})}" class="px-1 -mt-0.5">
+						            	<i class="fas fa-edit text-gray-400 hover:text-amber-400"></i>
+						            </a>
+						            <a th:href="@{{placeId}/reviews/delete/{id}(placeId=${placeId}, id=${review.id})}" class="px-1 -mt-0.5" onclick="return confirm('この口コミを削除してもよろしいですか？');">
+						                <i class="fas fa-trash text-gray-400 hover:text-red-400"></i>
+						            </a>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex items-center mt-4 mb-2">
+						<i class="fas fa-hourglass-start text-gray-600 text-sm mt-0.5 mr-1.5"></i>
+						<i th:each="star : ${#numbers.sequence(1,5)}" th:class="${review.rating >= star} ? 'fas fa-star text-amber-400 text-sm' : 'far fa-star text-amber-400 text-sm'"></i>
+					</div>
+					<p class="text-gray-600 whitespace-pre-wrap">[[${review.comment}]]</p>
+				</div>
+				<div th:unless="${!reviews.isEmpty()}" class="flex justify-center bg-gray-100 p-3 rounded-lg border border-gray-300">
+			        <p class="text-gray-600 font-semibold">口コミはありません</p>
+			    </div>
+			</div>
+			<h3 class="text-xl text-gray-600 font-semibold mt-4 mb-4">お店情報</h3>
+			<table class="min-w-full bg-white border border-gray-300">
+				<tbody>
+					<tr>
+						<th	class="px-3 py-2 border-b border-gray-200 bg-gray-100 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">営業時間</th>
+						<td class="px-3 py-2 border-b text-gray-600">
+							<ul id="hours"></ul>
+						</td>
+					</tr>
+					<tr>
+						<th	class="px-3 py-2 border-b border-gray-200 bg-gray-100 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">電話番号</th>
+						<td class="px-3 py-2 border-b text-gray-600">
+							<span id="phone"></span>
+						</td>
+					</tr>
+					<tr>
+						<th	class="px-3 py-2 border-b border-gray-200 bg-gray-100 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">公式サイト</th>
+						<td class="px-3 py-2 border-b text-gray-600">
+							<a id="website" href="#" target="_blank"></a>
+						</td>
+					</tr>
+					<tr>
+						<th	class="px-3 py-2 border-b border-gray-200 bg-gray-100 text-center text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider">住所</th>
+						<td class="px-3 py-2 border-b text-gray-600">
+							<span id="address"></span>
+							<div id="map" class="w-full h-96 mx-auto m-2 text-gray-600"></div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<script th:src="@{/js/restaurant-detail.js}"></script>
+		<script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${googleMapsApiKey} + '&callback=initDetail&libraries=places&v=weekly'"></script>
+	</main>
+</body>
+</html>

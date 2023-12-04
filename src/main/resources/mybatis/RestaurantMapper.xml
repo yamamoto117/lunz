@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.app.dao.RestaurantDao">
+  <select id="findRestaurantIdByPlaceId" parameterType="string" resultType="Integer">
+    SELECT id FROM restaurants WHERE place_id = #{placeId}
+  </select>
+
+  <insert id="insertRestaurantIfNotExists" parameterType="string">
+    INSERT INTO restaurants (place_id)
+    SELECT #{placeId} WHERE NOT EXISTS (
+      SELECT id FROM restaurants WHERE place_id = #{placeId}
+    )
+  </insert>
+</mapper>

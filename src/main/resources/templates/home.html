@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{parts/common :: layout('ホーム', ~{::body/content()})}">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body>
+	<main class="flex-1">
+		<div class="container mx-auto md:flex lg:px-40">
+			<div class="text-gray-600 md:w-1/4 w-full p-4">
+				<h2 class="text-xl font-semibold mb-4">お店検索</h2>
+				<form id="search-form" class="bg-white p-6 rounded-lg border border-gray-300">
+					<div class="mb-4">
+						<label for="keyword" class="block text-sm font-semibold text-gray-600 mb-2">キーワード(任意)</label>
+						<input id="keyword" type="text" class="w-full p-2 border rounded shadow-sm focus:outline-none focus:border-blue-300">
+					</div>
+					<div class="mb-4">
+						<label for="genre" class="block text-sm font-semibold text-gray-600 mb-2">ジャンル(任意)</label>
+						<select id="genre" name="genre" class="w-full p-2 border rounded shadow-sm focus:outline-none focus:border-blue-300">
+							<option value="">未選択</option>
+							<option value="和食">和食</option>
+							<option value="洋食">洋食</option>
+							<option value="中華料理">中華料理</option>
+							<option value="韓国料理">韓国料理</option>
+						</select>
+					</div>
+					<button type="submit" class="flex items-center justify-center w-full font-semibold py-2 px-4 bg-amber-400 text-white rounded hover:bg-amber-500 transition duration-200">
+						<i class="fas fa-search mr-1"></i>
+						検索
+					</button>
+
+				</form>
+			</div>
+			<div class="text-gray-600 md:w-3/4 w-full p-4">
+				<div class="flex items-center mb-4">
+					<h2 class="text-xl font-semibold">検索結果</h2>
+					<div class="ml-auto">
+						<select id="sort" name="sort" class="p-0.5 w-full border rounded shadow-sm focus:outline-none focus:border-blue-300" onchange="sortRestaurants()">
+							<option value="default">標準</option>
+							<option value="rating">評価が高い順</option>
+						</select>
+					</div>
+				</div>
+				<div id="info" class="flex justify-center bg-amber-100 p-6 rounded-lg border border-dashed border-amber-400">
+					<p class="font-semibold">お好みの条件でお店を検索してみましょう</p>
+				</div>
+				<div id="icon-info" class="hidden">
+					<div class="md:flex md:items-center md:justify-center text-gray-600 bg-amber-100 px-2 py-2 rounded-lg border border-dashed border-amber-400 mt-4 mb-2">
+						<p class="text-sm mr-10"><span><i class="fas fa-hourglass-start"></i></span>：時間的余裕</p>
+						<p class="text-sm"><span><i class="fas fa-walking"></i></span>：徒歩での移動時間(ジードライブ→目的地)</p>
+					</div>
+				</div>
+				<ul id="restaurant-list"></ul>
+			</div>
+		</div>
+		<div id="map"></div>
+		<script th:src="'https://maps.googleapis.com/maps/api/js?key=' + ${googleMapsApiKey} + '&callback=initMap&libraries=places&v=weekly'" defer></script>
+		<script th:src="@{/js/home.js}"></script>
+	</main>
+</body>
+</html>

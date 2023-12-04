@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{parts/common :: layout('新規登録', ~{::body/content()})}">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body>
+	<main class="flex-1">
+		<div class="container mx-auto px-4 pb-4 lg:px-80">
+			<div class="text-gray-600">
+				<h2 class="text-xl mt-4 font-semibold mb-4">新規登録</h2>
+
+
+				<form action="" method="post" th:object="${user}" class="space-y-4">
+					<div>
+						<label for="loginId" class="block mb-1">ログインID (6～20文字 / 英数字のみ)</label>
+						<input id="loginId" type="text" th:field="*{loginId}" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300" autocomplete="username">
+						<span th:errors="${user.loginId}" class="error text-red-500 text-sm mb-2"></span>
+					</div>
+					<div>
+						<label for="loginPass" class="block mb-1">パスワード (6～20文字)</label>
+						<input id="loginPass" type="password" th:field="*{loginPass}" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300" autocomplete="new-password">
+						<span th:errors="${user.loginPass}" class="error text-red-500 text-sm mb-2"></span>
+					</div>
+					<div>
+						<label for="confirmLoginPass" class="block mb-1">パスワード 【確認】</label>
+                        <input id="confirmLoginPass" type="password" th:field="*{loginPassConfirm}" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300">
+		                <span th:errors="${user.loginPassConfirm}" class="error text-red-500 text-sm mb-2"></span>
+                    </div>
+					<div>
+						<label for="name" class="block mb-1">ユーザー名 (1～20文字)</label>
+						<input id="name" type="text" th:field="*{name}" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300" autocomplete="name">
+		                <span th:errors="${user.name}" class="error text-red-500 text-sm mb-2"></span>
+					</div>
+					<div class="w-full">
+						<input type="submit" value="登録する" class="w-full font-semibold bg-amber-400 text-white px-10 py-2 rounded hover:bg-amber-500 cursor-pointer" onclick="return confirm('この内容で登録してもよろしいですか？');">
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{parts/common :: layout(${title}, ~{::body/content()})}">
+<head th:replace="~{parts/common :: html_head()}"></head>
+<body>
+	<main class="flex-1">
+		<div class="container mx-auto py-6 px-4 lg:px-44">
+			<a href="javascript:history.back()"	class="text-blue-500 text-xl font-bold hover:text-blue-300 -ml-1" onclick="return confirm('お店詳細に戻ってもよろしいですか？');">
+				＜ お店詳細へ
+			</a>
+			<h2 id="name" class="text-3xl mt-8 font-semibold"></h2>
+			<div class="pt-4 text-gray-600">
+				<p class="text-xl font-bold mb-4">[[${title}]]</p>
+				<form action="" method="post" th:object="${review}"	class="space-y-4">
+					<div>
+						<label for="visitDate" class="block mb-1">訪問日 <span class="text-red-500">(必須)</span></label>
+						<input id="visitDate" type="date" th:field="*{visitDate}" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300">
+						<span th:errors="*{visitDate}" class="error text-red-500 block"></span>
+					</div>
+					<div>
+						<label for="rating" class="block mb-1">時間的余裕 <span class="text-red-500">(必須)</span></label>
+							<div class="flex flex-col">
+							 	<div class="flex items-center">
+									<div id="stars"></div>
+								    <select id="rating" name="rating" th:field="*{rating}" class="border rounded-md p-2 w-auto focus:outline-none focus:border-blue-300 ml-2" onchange="updateStars()">
+								    	<option value="" selected>選択してください</option>
+								    	<option value="1">1 (間に合わず)</option>
+								    	<option value="2">2 (余裕なし)</option>
+								    	<option value="3">3 (普通)</option>
+								    	<option value="4">4 (余裕)</option>
+								    	<option value="5">5 (かなり余裕)</option>
+								    </select>
+								</div>
+							</div>
+						<span th:errors="*{rating}" class="error text-red-500 block"></span>
+					</div>
+					<div>
+						<label for="comment" class="block mb-1">コメント (任意 / 1000字以内)</label>
+						<textarea id="comment" th:field="*{comment}" rows="5" class="border rounded-md p-2 w-full focus:outline-none focus:border-blue-300"></textarea>
+						<span th:errors="*{comment}" class="error text-red-500 block"></span>
+					</div>
+					<div class="flex justify-center">
+						<input type="submit" value="投稿する" class="w-full font-semibold bg-amber-400 text-white px-10 py-2 rounded hover:bg-amber-500 cursor-pointer" onclick="return confirm('この内容で投稿してもよろしいですか？');">
+					</div>
+				</form>
+			</div>
+		</div>
+	</main>
+	<script>
+		function updateStars() {
+		    var rating = document.getElementById('rating').value;
+		    var stars = document.getElementById('stars');
+		    stars.innerHTML = '';
+		
+		    for (var i = 0; i < rating; i++) {
+		        stars.innerHTML += '<i class="fas fa-star text-amber-400 text-2xl"></i>';
+		    }
+		
+		    for (var j = 0; j < 5 - rating; j++) {
+		        stars.innerHTML += '<i class="far fa-star text-amber-400 text-2xl"></i>';
+		    }
+		}
+		
+		updateStars();
+	</script>
+</body>
+</html>

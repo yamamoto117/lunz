@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title, main)">
+<head th:fragment="html_head()">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>[[${title}]] | ランジー</title>
+<link rel="icon" type="image/png" sizes="32x32" th:href="@{/favicon.png}">
+<link th:href="@{/css/style.css}" rel="stylesheet">
+<link th:href="@{/dist/output.css}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<script th:inline="javascript">
+	/*<![CDATA[*/
+ 	var placeId = /*[[${placeId}]]*/'default';
+	/*]]>*/
+</script>
+</head>
+<body class="flex flex-col min-h-screen">
+	<header th:fragment="header()" class="text-gray-600 bg-white border-2 border-x-0 border-t-0 border-amber-400">
+		<div class="container lg:px-40 mx-auto px-2 py-3 flex items-center flex-row">
+			<div class="flex items-center">
+				<a th:href="@{/}" class="logo flex items-center title-font font-medium text-gray-600 text-center">
+					<img th:src="@{/images/logo.png}" alt="ロゴ" class="w-20 h-auto">
+					<span class="text-4xl ml-2 md:ml-3">ランジー</span>
+				</a>
+            </div>
+			<div class="ml-auto">
+				<div class="md:hidden relative">
+					<div class="flex items-center">
+						<p  th:if="${session.loginStatus != null}" class="text-gray-600 font-semibold">
+							<span th:text="${session.loginStatus.name}" class="hidden md:block mr-2">ユーザー</span>
+						</p>
+				    	<i id="userIcon" class="fas fa-user-circle text-5xl text-gray-300 mx-1"></i>
+				    </div>
+				    <div id="dropdownMenu" class="hidden absolute top-14 right-0 w-48 border border-gray-200 shadow-lg bg-white rounded-lg overflow-hidden mr-2">
+					    <a th:if="${session.loginStatus == null}" th:href="@{/login}" class="block font-semibold text-gray-600 hover:bg-gray-100 px-4 py-2">
+							<span><i class="fas fa-sign-in-alt mr-1 text-amber-400"></i></span>
+							ログイン / 新規登録 
+						</a>
+					    <a th:if="${session.loginStatus == null}" th:href="@{/guest-login}" class="block font-semibold text-gray-600 hover:bg-gray-100 px-4 py-2" onclick="return confirm('ゲストユーザーとしてログインしますか？');">
+						    <span><i class="fas fa-sign-in-alt mr-1 text-gray-400"></i></span>
+							ゲストログイン
+						</a>
+						<div th:if="${session.loginStatus != null}">
+							<p class="flex justify-center text-gray-600 font-semibold bg-amber-100 px-2 py-1">
+								<span th:text="${session.loginStatus.name}">ユーザー</span>
+							</p>
+							<a th:href="@{/logout}" class="block font-semibold text-gray-600 hover:bg-gray-100 px-4 py-2"  onclick="return confirm('ログアウトしてもよろしいですか？');">
+								<span><i class="fas fa-sign-out-alt mr-1 text-red-400"></i></span>
+								ログアウト
+							</a>
+						</div>
+					</div>
+			    </div>
+				<div class="hidden md:block">
+					<a th:if="${session.loginStatus == null}" th:href="@{/login}" class="bg-white text-gray-600 font-semibold px-4 py-2 rounded border-2 border-amber-400 hover:bg-amber-100 transition duration-200 ease-in-out">
+						<span><i class="fas fa-sign-in-alt mr-1 text-amber-400"></i></span>
+						ログイン / 新規登録
+					</a>
+					<a th:if="${session.loginStatus == null}" th:href="@{/guest-login}"	class="bg-white text-gray-600 font-semibold px-4 py-2 ml-2 rounded border-2 border-gray-400 hover:bg-gray-100 transition duration-200 ease-in-out" onclick="return confirm('ゲストユーザーとしてログインしますか？');">
+						<span><i class="fas fa-sign-in-alt mr-1 text-gray-400"></i></span>
+						ゲストログイン
+					</a>
+					<div th:if="${session.loginStatus != null}"	class="flex items-center">
+						<p class="text-gray-600 pr-4 font-semibold">
+							<span th:text="${session.loginStatus.name}">ユーザー</span>
+						</p>
+						<a th:href="@{/logout}" class="bg-white text-gray-600 font-semibold px-4 py-2 rounded border-2 border-red-400 hover:bg-red-100 transition duration-200 ease-in-out" onclick="return confirm('ログアウトしてもよろしいですか？');">
+							<span><i class="fas fa-sign-out-alt mr-1 text-red-400"></i></span>
+							ログアウト
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<div th:replace="${main}"></div>
+
+	<footer th:fragment="footer()" class="text-gray-600 bg-white border-2 border-x-0 border-b-0 border-amber-400">
+		<div class="container lg:px-44 md:py-5 py-2.5 mx-auto flex items-center md:flex-row flex-col">
+			<a th:href="@{/}" class="flex title-font font-medium items-center md:justify-start justify-center text-gray-600">
+				<img th:src="@{/images/logo.png}" alt="ロゴ" class="w-16 h-auto">
+				<span class="text-2xl ml-1 md:ml-2">ランジー</span>
+			</a>
+			<p class="text-sm text-gray-500 md:ml-4 md:pl-4 md:border-l-2 md:border-gray-200 md:py-2">&copy; 2023 ランジー</p>
+		</div>
+	</footer>
+	
+	<script>
+        document.getElementById('userIcon').addEventListener('click', function() {
+            var dropdown = document.getElementById('dropdownMenu');
+            if (dropdown.classList.contains('hidden')) {
+                dropdown.classList.remove('hidden');
+            } else {
+                dropdown.classList.add('hidden');
+            }
+        });
+    </script>
+
+</body>
+</html>
