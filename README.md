@@ -1,7 +1,7 @@
 # 【ジードライブ関係者限定】ランチ口コミ投稿システム「ランジー」
 ▶http://java.apps.rok.jp:22757/
 
-(※ジードライブとは、開発者がお世話になった職業訓練校(https://www.zdrv.com/)です)
+(※ジードライブとは、開発者がお世話になった職業訓練校です)
 
 <img width="1440" alt="top" src="https://github.com/yamamoto117/lunz/assets/99392507/bda4e139-d674-4413-aa2c-9f570b196033">
 
@@ -18,7 +18,19 @@
 * 口コミ評価項目は「時間的余裕」(「移動時間 + 食事にかかる時間のゆとり」を星5段階で評価)
 * 口コミ評価が高いお店を選ぶことで、比較的時間にゆとりのある外食が可能となる
 
-## 2.機能一覧
+## 2.画面
+### (1)ホーム(検索結果表示時)
+<img width="1440" alt="search" src="https://github.com/yamamoto117/lunz/assets/99392507/6a2492e8-dcad-48e5-a69a-4247d1ab01bd">
+
+![sort](https://github.com/yamamoto117/lunz/assets/99392507/554b3994-8b7e-4573-9d93-5771514b193b)
+
+### (2)お店詳細
+![detail](https://github.com/yamamoto117/lunz/assets/99392507/eba5d5ab-d27d-4f29-b85a-33d78b9ee920)
+
+### (3)口コミ投稿
+<img width="1440" alt="review" src="https://github.com/yamamoto117/lunz/assets/99392507/9e3eb2a3-eefc-4f7c-86e3-f0143b0d51d8">
+
+## 3.機能一覧
 ### メイン機能
 * ジードライブ周辺のお店情報閲覧(キーワード検索 / ジャンル検索 / 評価が高い順に並び替え)
 * 口コミ投稿(訪問日 / 時間的余裕 / コメント)
@@ -28,7 +40,7 @@
 * ログイン / ログアウト
 * ゲストログイン
 
-## 3.使用技術
+## 4.使用技術
 ### フロントエンド
 * HTML
 * CSS
@@ -54,5 +66,5 @@
 * Eclipse
 * Windows 10 / macOS
 
-## 4.ER図
+## 5.ER図
 ![lunz_er](https://github.com/yamamoto117/lunz/assets/99392507/4da677c5-a803-472d-9891-ff834a6a2554)
