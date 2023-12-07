@@ -22,6 +22,7 @@
 ### (1)ホーム(検索結果表示時)
 <img width="1440" alt="search" src="https://github.com/yamamoto117/lunz/assets/99392507/6a2492e8-dcad-48e5-a69a-4247d1ab01bd">
 
+検索結果の並び替え(評価が高い順)
 ![sort](https://github.com/yamamoto117/lunz/assets/99392507/554b3994-8b7e-4573-9d93-5771514b193b)
 
 ### (2)お店詳細
@@ -31,23 +32,26 @@
 <img width="1440" alt="review" src="https://github.com/yamamoto117/lunz/assets/99392507/9e3eb2a3-eefc-4f7c-86e3-f0143b0d51d8">
 
 ## 3.機能一覧
-### メイン機能
-* ジードライブ周辺のお店情報閲覧(キーワード検索 / ジャンル検索 / 評価が高い順に並び替え)
+### (1)メイン機能
+* ジードライブ周辺のお店情報閲覧
+	* キーワード検索
+	* ジャンル検索
+	* 評価が高い順に並び替え
 * 口コミ投稿(訪問日 / 時間的余裕 / コメント)
 
-### 認証機能
+### (2)認証機能
 * ユーザー登録
 * ログイン / ログアウト
 * ゲストログイン
 
 ## 4.使用技術
-### フロントエンド
+### (1)フロントエンド
 * HTML
 * CSS
 * JavaScript
 * Tailwind CSS 3.3.3
 
-### バックエンド
+### (2)バックエンド
 * Java 17.0.6
 * Spring Boot 2.7.16
 * Thymeleaf 3.0.15
@@ -57,10 +61,10 @@
 * jBCrypt 0.4.3
 * Node.js 18.12.1 / npm 8.19.2
 
-### インフラ
+### (3)インフラ
 * Apache Tomcat 9.0.41
 
-### その他
+### (4)その他
 * Google Maps API(Places API / Directions API / Maps API)
 * Git 2.37.1 / GitHub
 * Eclipse
