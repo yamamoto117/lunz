@@ -1,4 +1,4 @@
-# ランジー /【ジードライブ関係者向け】ランチ口コミアプリ
+# 【ジードライブ関係者向け】ランチ口コミアプリ『ランジー』
 
 <img width="1440" alt="top" src="https://github.com/yamamoto117/lunz/assets/99392507/bda4e139-d674-4413-aa2c-9f570b196033">
 
