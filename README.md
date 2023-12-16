@@ -23,18 +23,20 @@
 ### (4)URL
 http://java.apps.rok.jp:22757/
 
-## 2.画面
-### (1)ホーム(検索結果表示時)
-<img width="1440" alt="search" src="https://github.com/yamamoto117/lunz/assets/99392507/6a2492e8-dcad-48e5-a69a-4247d1ab01bd">
+## 2.主な機能
 
-検索結果の並び替え(評価が高い順)
-![sort](https://github.com/yamamoto117/lunz/assets/99392507/554b3994-8b7e-4573-9d93-5771514b193b)
-
-### (2)お店詳細
-![detail](https://github.com/yamamoto117/lunz/assets/99392507/eba5d5ab-d27d-4f29-b85a-33d78b9ee920)
-
-### (3)口コミ投稿
-<img width="1440" alt="review" src="https://github.com/yamamoto117/lunz/assets/99392507/9e3eb2a3-eefc-4f7c-86e3-f0143b0d51d8">
+<table>
+	<tr>
+		<th style="text-align: center">お店検索</th>
+		<th style="text-align: center">検索結果並び替え</th>
+		<th style="text-align: center">口コミ投稿</th>
+	</tr>
+	<tr>
+		<td><img alt="search" src="https://github.com/yamamoto117/lunz/assets/99392507/e45d2660-e80c-4d91-b3ed-79e64dbde460">任意でキーワード・ジャンルを設定可能</td>
+		<td><img alt="sort" src="https://github.com/yamamoto117/lunz/assets/99392507/e64893bf-587c-4d2f-b74f-62874c5c9c08">口コミ評価が高い順に並び替え</td>
+		<td><img alt="review" src="https://github.com/yamamoto117/lunz/assets/99392507/3d511135-2f7d-4107-8c7b-f0e7322ced63">訪問日・時間的余裕・コメントを入力</td>
+    </tr>
+</table>
 
 ## 3.機能一覧
 ### (1)メイン機能
