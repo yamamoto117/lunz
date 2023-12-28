@@ -1,6 +1,6 @@
 # 【ジードライブ関係者向け】ランチ口コミアプリ『ランジー』
 
-<img width="1440" alt="top" src="https://github.com/yamamoto117/lunz/assets/99392507/bda4e139-d674-4413-aa2c-9f570b196033">
+![lunz](https://github.com/yamamoto117/lunz/assets/99392507/9496dda9-78c3-4c4a-9021-db8181add586)
 
 (※『ジードライブ』とは開発者がお世話になった職業訓練校名です)
 
