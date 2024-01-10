@@ -72,7 +72,7 @@ http://java.apps.rok.jp:22757/
 * Apache Tomcat 9.0.41
 
 ### (4)その他
-* Google Maps API(Places API / Directions API / Maps API)
+* Google Maps API (Places API / Directions API / Maps API)
 * Git 2.37.1 / GitHub
 * Eclipse
 * Windows 10 / macOS
